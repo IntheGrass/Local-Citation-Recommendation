@@ -5,3 +5,5 @@
 /model
 train_with_prefetched_ids.json
 val_with_prefetched_ids.json
+
+.idea/
