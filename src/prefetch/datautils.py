@@ -73,6 +73,7 @@ class Vocab:
         return self.word_to_index.get( word, -1 )
     # The sentence needs to be tokenized 
     def sent2seq( self, sent, max_len = None , tokenize = True):
+        # 将文本单词序列转为单词id序列，不存在的单词略过。
         if tokenize:
             sent = self.tokenizer.tokenize(sent)
         seq = []
