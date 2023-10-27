@@ -149,6 +149,7 @@ class PrefetchDataset( Dataset ):
 
         
     def load_document( self, paper_id, is_citing_document = False ):
+        # 返回格式为 [[title_txt, title_label], [abstract, abstract_label]]
         paper = self.paper_database.get( paper_id, {} )
         title = paper.get("title","")
         abstract = paper.get("abstract","")
@@ -159,6 +160,7 @@ class PrefetchDataset( Dataset ):
         return document
 
     def load_citation_context( self, context_id  ):
+        # 返回[[title, title_label], [abstract, abstract_label], [context, context_label]]
         context = self.context_database[ context_id ]
         context_text = context["masked_text"]
         citing_id = context["citing_id"]
@@ -167,7 +169,6 @@ class PrefetchDataset( Dataset ):
         return citation_context_document    
     
     def encode_document( self, document ):
-        
         document = document[ :self.max_doc_len ]
         document = document + [ ["", self.padding_paragraph_label ] for _ in range(self.max_doc_len-len(document) ) ] 
         
@@ -191,7 +192,7 @@ class PrefetchDataset( Dataset ):
         irrelevance_level_list = []
 
         while True:
-            idx = np.random.choice( len(self.corpus) )
+            idx = np.random.choice( len(self.corpus) )  # 随机从训练集选取一项
             corpus_item = self.corpus[idx]
 
             context_id = corpus_item["context_id"]
