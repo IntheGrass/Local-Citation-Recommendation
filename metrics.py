@@ -99,7 +99,7 @@ class MetricsItem:
             rank_first += 1
             if recommend_id in self.positive_set:
                 return 1 / rank_first
-        return rank_first
+        return 0
 
 
 if __name__ == '__main__':
